@@ -13,7 +13,11 @@ $routes = [
     "info" => "pages/info.php",
     "login" => "pages/login.php",
     "room" => "pages/users/room.php",
-    "help" => "pages/users/help.php"
+    "help" => "pages/users/help.php",
+    "admin/dashboard" => "pages/admin/dashboard.php",
+    "admin/customers" => "pages/admin/Customers.php",
+    "admin/product" => "pages/admin/Product.php",
+    "admin/help" => "pages/admin/Help.php"
 ];
 
 // Cek apakah request cocok route statis
