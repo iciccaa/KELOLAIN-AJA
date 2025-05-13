@@ -23,23 +23,120 @@
     <div class="flex h-screen bg-gray-50">
         <?php include "./Components/admin/sidebar.php"; ?>
 
-        <!-- Main Content -->
-        <div class="flex-1 overflow-y-auto">
-            <!-- Topbar -->
-            <div class="flex justify-between w-full items-center px-8 py-6 bg-white border-b">
-                <h1 class="text-2xl font-bold text-gray-800">Hello Aca, Welcome Back!</h1>
-                <!-- Search Bar -->
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+        <div class="flex-1 p-12 overflow-auto">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Customers</h2>
+
+            <div class="bg-white rounded w-full p-10">
+                <div class="flex">
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                         </svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                            </li>
+                        </ul>
                     </div>
-                    <input type="text" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search">
+                    <div class="ml-12 gap-8 flex">
+                        <input type="date" class="border border-gray-300 text-sm rounded-lg p-2" placeholder="Check In Date">
+                        <input type="date" class="border border-gray-300 text-sm rounded-lg p-2" placeholder="Payment">
+
+                        <form class="max-w-md mx-auto">
+                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                </div>
+                                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+                            </div>
+                        </form>
+
+                        <button type="button"
+                            class="flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+                            </svg>
+                            Filter
+                        </button>
+
+                    </div>
+
+                </div>
+                <!-- Flowbite Table -->
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-12">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-[#F2F2F2]">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Name</th>
+                                <th scope="col" class="px-6 py-3">Check in Date</th>
+                                <th scope="col" class="px-6 py-3">Payment</th>
+                                <th scope="col" class="px-6 py-3">No Room</th>
+                                <th scope="col" class="px-6 py-3">Univesity/Company</th>
+                                <th scope="col" class="px-6 py-3">Age</th>
+                                <th scope="col" class="px-6 py-3">Id Penyewa</th>
+                                <th scope="col" class="px-6 py-3">Save</th>
+                                <th scope="col" class="px-6 py-3">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b bg-white">
+                                <td class="px-6 py-4">John Doe</td>
+                                <td class="px-6 py-4">23-01-2024</td>
+                                <td class="px-6 py-4">Pending</td>
+                                <td class="px-6 py-4">10</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">UPN Veteran Yogyakarta</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">18</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Id Penyewa</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Save</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Hapus</td>
+                            </tr>
+                            <tr class="bg-white border-b bg-white">
+                                <td class="px-6 py-4">John Doe</td>
+                                <td class="px-6 py-4">23-01-2024</td>
+                                <td class="px-6 py-4">Pending</td>
+                                <td class="px-6 py-4">10</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">UPN Veteran Yogyakarta</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">18</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Id Penyewa</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Save</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Hapus</td>
+                            </tr>
+                            <tr class="bg-white border-b bg-white">
+                                <td class="px-6 py-4">John Doe</td>
+                                <td class="px-6 py-4">23-01-2024</td>
+                                <td class="px-6 py-4">Pending</td>
+                                <td class="px-6 py-4">10</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">UPN Veteran Yogyakarta</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">18</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Id Penyewa</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Save</td>
+                                <td class="px-6 py-4 text-green-600 font-medium">Hapus</td>
+                            </tr>
+
+                            <!-- Tambahkan baris lain di sini jika perlu -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- User profile dropdown button -->
     <button id="userDropdown" class="fixed bottom-6 left-6 z-50 flex items-center bg-white text-gray-700 p-2 rounded-lg shadow-md">
