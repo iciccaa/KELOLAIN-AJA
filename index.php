@@ -19,7 +19,8 @@ $routes = [
     "admin/customers" => "pages/admin/Customers.php",
     "admin/product" => "pages/admin/Product.php",
     "admin/help" => "pages/admin/Help.php",
-    "owners/product" => "pages/owners/ownerProduct.php"
+    "owners/product" => "pages/owners/ownerProduct.php",
+    "owners/customers" => "pages/owners/ownerCustomer.php"
 ];
 
 // Cek apakah request cocok route statis

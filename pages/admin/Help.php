@@ -25,17 +25,15 @@
 
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto">
-            <!-- Topbar -->
-            <div class="flex justify-between w-full items-center px-8 py-6 bg-white border-b">
-                <h1 class="text-2xl font-bold text-gray-800">Hello Aca, Welcome Back!</h1>
-                <!-- Search Bar -->
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
+            <!-- Main Content -->
+            <div class=" p-10 w-full " data-aos="fade-right">
+                <div class="flex-1 bg-white p-6 rounded-lg shadow-lg ">
+                    <h2 class="text-xl font-semibold mb-4">Chat Pengguna</h2>
+                    <div id="chat-box" class="flex flex-col p-4 h-[400px] overflow-y-auto border rounded-lg bg-gray-50 mb-4"></div>
+                    <div class="flex">
+                        <input id="message" type="text" placeholder="Message" class="flex-1 border rounded-l px-4 py-2 focus:outline-none" />
+                        <button onclick="sendMessage()" class="bg-[#322A7D] text-white px-4 py-2 rounded-r">Kirim</button>
                     </div>
-                    <input type="text" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search">
                 </div>
             </div>
         </div>
@@ -57,3 +55,42 @@
 </body>
 
 </html>
+<script>
+    function fetchMessages() {
+        fetch("pages/controller/get_messages.php")
+            .then(response => response.json())
+            .then(data => {
+                const chatBox = document.getElementById("chat-box");
+                chatBox.innerHTML = '';
+                data.forEach(msg => {
+                    const bubble = document.createElement("div");
+                    bubble.className = `my-1 p-3 rounded-lg max-w-[70%] ${
+                        msg.sender === 'admin' ? 'bg-gray-200 self-start' : 'bg-[#322A7D] text-white self-end ml-auto'
+                    }`;
+                    bubble.innerText = msg.message;
+                    chatBox.appendChild(bubble);
+                });
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+    }
+
+    function sendMessage() {
+        const msg = document.getElementById("message").value;
+        if (!msg) return;
+
+        fetch("pages/controller/send_message.php", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `sender=user&message=${encodeURIComponent(msg)}`
+        }).then(() => {
+            document.getElementById("message").value = '';
+            fetchMessages();
+        });
+    }
+
+    setInterval(fetchMessages, 2000);
+    fetchMessages();
+</script>
+<script></script>
