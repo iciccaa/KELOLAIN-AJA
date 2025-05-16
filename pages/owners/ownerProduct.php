@@ -21,7 +21,7 @@
 
 <body>
     <div class="flex h-screen bg-gray-50">
-        <?php include "./Components/admin/sidebar.php"; ?>
+        <?php include "./Components/owner/sidebar.php"; ?>
 
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto p-10">

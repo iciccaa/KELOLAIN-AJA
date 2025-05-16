@@ -13,7 +13,7 @@
        </a>
      </li>
      <li>
-       <a href='#' class="block py-2 px-4 rounded-lg text-black hover:bg-[#322A7D] hover:text-white">
+       <a href='history' class="block py-2 px-4 rounded-lg text-black hover:bg-[#322A7D] hover:text-white">
          History
        </a>
      </li>
