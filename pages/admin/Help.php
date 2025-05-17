@@ -24,7 +24,7 @@
         <?php include "./Components/admin/sidebar.php"; ?>
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-y-auto">
+        <div class="flex-1 overflow-y-auto ml-[16rem]">
             <!-- Main Content -->
             <div class=" p-10 w-full " data-aos="fade-right">
                 <div class="flex-1 bg-white p-6 rounded-lg shadow-lg ">

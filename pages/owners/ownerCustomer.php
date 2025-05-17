@@ -23,7 +23,7 @@
     <div class="flex h-screen bg-gray-50">
         <?php include "./Components/owner/sidebar.php"; ?>
         <!-- Dashboard Content -->
-        <div class="p-8">
+        <div class="p-8 ml-[16rem]">
             <h2 class="text-2xl font-bold text-gray-800">Hello Hesti, Welcome Back!</h2>
             <br>
             <!-- Stats Cards -->

@@ -22,7 +22,7 @@
     <?php include "./Components/admin/sidebar.php"; ?>
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-y-auto">
+        <div class="flex-1 overflow-y-auto ml-[16rem]">
             <!-- Topbar -->
             <div class="flex justify-between w-full items-center px-8 py-6 bg-white border-b">
                 <h1 class="text-2xl font-bold text-gray-800">Hello Aca, Welcome Back!</h1>

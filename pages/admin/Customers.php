@@ -25,7 +25,7 @@
     <div class="flex h-screen bg-gray-50">
         <?php include "./Components/admin/sidebar.php"; ?>
 
-        <div class="flex-1 p-12 overflow-auto">
+        <div class="flex-1 p-12 overflow-auto ml-[16rem]">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">Customers</h2>
 
             <div class="bg-white rounded w-full p-10">

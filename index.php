@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./pages/db.php";
+include "./koneksi/db.php";
 
 // Ambil URI setelah "/kosPelitaHarapan"
 $request = trim(str_replace("/kosPelitaHarapan", "", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH)), "/");

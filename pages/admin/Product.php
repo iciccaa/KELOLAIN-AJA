@@ -24,7 +24,7 @@
         <?php include "./Components/admin/sidebar.php"; ?>
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-y-auto p-10">
+        <div class="flex-1 overflow-y-auto p-10 ml-[16rem]">
             <!-- Topbar -->
             <div>
                 <h1 class="text-2xl font-bold text-gray-800">Product Information</h1>

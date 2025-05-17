@@ -1,5 +1,6 @@
 <!-- Sidebar -->
-<div class="w-64 bg-white shadow max-h-full">
+<div class="w-64 h-screen bg-white shadow fixed">
+
     <div class="p-6">
         <div class="flex items-center">
             <span class="text-lg font-semibold text-gray-800">Kos Pelita Harapan</span>
