@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Query user berdasarkan email
-  
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -20,33 +19,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Jika user ditemukan
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
 
-    $result = $stmt->get_result();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
 
-        if ($password === $user['password']) {
-            $_SESSION['user'] = $user['email'];
+            if ($password === $user['password']) {
+                $_SESSION['user'] = $user['email'];
 
-            echo "<script>
+                echo "<script>
                 alert('Login berhasil!');
                 window.location.href = 'home'; // arahkan ke route home
             </script>";
-            exit;
+                exit;
+            } else {
+                echo "
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Password salah!',
+                    footer: '<a href=\"#\">Lupa password?</a>'
+                }).then(() => {
+                    window.location.href = 'login.php';
+                });
+            </script>";
+            }
         } else {
-            echo "<script>alert('salah kontol'); window.location.href='login';</script>";
+            echo "<script>alert('Email tidak ditemukan!'); window.location.href='login';</script>";
         }
-    } else {
-        echo "<script>alert('Email tidak ditemukan!'); window.location.href='login';</script>";
     }
-}
 
     $stmt->close();
 }
@@ -64,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
