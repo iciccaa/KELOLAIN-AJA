@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
 
-        if (password_verify($password, $user['password'])) {
+        if ($password === $user['password']) {
             $_SESSION['user'] = $user['email'];
 
             echo "<script>
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </script>";
             exit;
         } else {
-            echo "<script>alert('Password salah!'); window.location.href='login';</script>";
+            echo "<script>alert('salah kontol'); window.location.href='login';</script>";
         }
     } else {
         echo "<script>alert('Email tidak ditemukan!'); window.location.href='login';</script>";
