@@ -37,14 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             echo "<script>
                 alert('Login berhasil!');
-                window.location.href = '/home'; // arahkan ke route home
+                window.location.href = 'home'; // arahkan ke route home
             </script>";
             exit;
         } else {
-            echo "<script>alert('Password salah!'); window.location.href='/login';</script>";
+            echo "<script>alert('Password salah!'); window.location.href='login';</script>";
         }
     } else {
-        echo "<script>alert('Email tidak ditemukan!'); window.location.href='/login';</script>";
+        echo "<script>alert('Email tidak ditemukan!'); window.location.href='login';</script>";
     }
 }
 
