@@ -5,12 +5,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
 include __DIR__ . '/../koneksi/db.php';
 
+
 // Proses login saat form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     // Query user berdasarkan email
+  
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -73,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Form Login -->
                 <div class="backdrop-blur-sm bg-white/30 border border-gray-200 rounded-lg p-8 shadow-xl w-96" data-aos="fade-right">
-                    <form data-aos="zoom-in-right" action="/pages/login.php" method="POST" class="flex flex-col justify-center items-center space-y-4">
+                    <form data-aos="zoom-in-right" action="login" method="POST" class="flex flex-col justify-center items-center space-y-4">
                         <h1 class="font-bold text-black text-2xl pb-2">Login</h1>
 
                         <div class="w-full">

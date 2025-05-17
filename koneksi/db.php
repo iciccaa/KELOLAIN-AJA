@@ -1,10 +1,11 @@
-<?php 
-$host = 'localhost';
-$user = 'root' ;
+<?php
+$host = "localhost";
+$user = "root";
 $pass = "";
-$db = 'kos_pelita';
+$dbname = "kos_pelita";
 
-$kon = mysqli_connect($host, $user, $pass, $db);
-if (!$kon) {
-    die("Connection failed: " . mysqli_connect_error());
+$conn = new mysqli($host, $user, $pass, $dbname);
+
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
