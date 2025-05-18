@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <p class="text-center text-sm pt-2">
                             Don't have an account?
-                            <a href="/register" class="text-[#AE4700] hover:underline">Create your account</a>
+                            <a href="register" class="text-[#AE4700] hover:underline">Create your account</a>
                         </p>
                     </form>
                 </div>
