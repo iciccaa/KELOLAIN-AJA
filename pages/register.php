@@ -7,28 +7,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirm_password"];
     $agree = isset($_POST["agree"]);
+    $role = $_POST["role"] ?? ''; // ✅ Tambahkan ini
 
     // Validasi sederhana (boleh dikembangkan)
     if ($password !== $confirmPassword) {
         $error = "Password dan konfirmasi tidak cocok.";
     } elseif (!$agree) {
         $error = "Anda harus menyetujui syarat dan ketentuan.";
-    } else {
-        // Simpan ke database di sini (belum dibuat)
-        $success = "Registrasi berhasil!";
-    }
-
-    // Validasi
-    if ($password !== $confirmPassword) {
-        $error = "Password dan konfirmasi tidak cocok.";
-    } elseif (!$agree) {
-        $error = "Anda harus menyetujui syarat dan ketentuan.";
+    } elseif (empty($role)) {
+        $error = "Silakan pilih role pengguna atau owner.";
     } else {
         $name = $firstName . ' ' . $lastName;
         $Password = $password;
 
+        // Tentukan tabel berdasarkan role
+        $table = ($role === "owner") ? "owners" : "users";
+
         // Query simpan
-        $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO $table (name, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $name, $email, $Password);
 
         if ($stmt->execute()) {
@@ -92,13 +88,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br>
             <div class="flex flex-wrap">
                 <div class="flex items-center me-4">
-                    <input id="red-radio" type="radio" value="" name="colored-radio" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="red-radio" class="ms-2 text-sm font-medium ">Pengguna</label>
+                    <input id="red-radio" type="radio" value="pengguna" name="role" required class="...">
+                    <label for="red-radio" class="ms-2 text-sm font-medium">Pengguna</label>
                 </div>
                 <div class="flex items-center me-4">
-                    <input id="green-radio" type="radio" value="" name="colored-radio" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="green-radio" type="radio" value="owner" name="role" required class="...">
                     <label for="green-radio" class="ms-2 text-sm font-medium">Owner</label>
                 </div>
+
             </div>
 
 
