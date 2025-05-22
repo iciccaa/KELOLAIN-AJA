@@ -18,6 +18,7 @@ $routes = [
     "admin/dashboard" => "pages/admin/dashboard.php",
     "admin/customers" => "pages/admin/Customers.php",
     "admin/product" => "pages/admin/Product.php",
+    "admin/productAdd" => "pages/admin/ProductAdd.php",
     "admin/help" => "pages/admin/Help.php",
     "owners/product" => "pages/owners/ownerProduct.php",
     "owners/customers" => "pages/owners/ownerCustomer.php",
