@@ -89,22 +89,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
 
         <div class="grid grid-cols-1 gap-6">
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="flex bg-white rounded-xl shadow-md p-6 gap-x-12">
-                    <div>
-                        <img src="../uploads/<?php echo $row['gambar']; ?>" alt="gmabar" class="rounded-xl" width="200">
+    <?php while ($row = $result->fetch_assoc()): ?>
+        <div class="flex justify-between bg-white rounded-xl shadow-md p-6 gap-x-12 relative">
+            <!-- Gambar -->
+            <div>
+                <img src="../uploads/<?php echo $row['gambar']; ?>" alt="gambar" class="rounded-xl" width="200">
+            </div>
 
-                    </div>
-                    <div>
-                        <h2 class="text-lg font-bold"><?= htmlspecialchars($row['name']) ?></h2>
-                        <br><br>
-                        <p class="text-gray-700 mb-1">Harga: Rp<?= number_format($row['price'], 0, ',', '.') ?></p>
-                        <p class="text-gray-700 mb-1">Kamar Kosong: <?= $row['available_room'] ?></p>
-                        <p class="text-gray-700 mb-1">Kamar Terisi: <?= $row['tenant_room'] ?></p>
-                    </div>
-                </div>
-            <?php endwhile; ?>
+            <!-- Data kosan -->
+            <div class="flex-1">
+                <h2 class="text-lg font-bold"><?= htmlspecialchars($row['name']) ?></h2>
+                <br><br>
+                <p class="text-gray-700 mb-1">Harga: Rp<?= number_format($row['price'], 0, ',', '.') ?></p>
+                <p class="text-gray-700 mb-1">Kamar Kosong: <?= $row['available_room'] ?></p>
+                <p class="text-gray-700 mb-1">Kamar Terisi: <?= $row['tenant_room'] ?></p>
+            </div>
+
+            <!-- Tombol Edit & Hapus -->
+            <div class="flex items-center gap-2 absolute top-4 right-4">
+                <!-- Tombol Edit -->
+                <a href="edit.php?id=<?= $row['id'] ?>" class="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600" title="Edit">
+                    ✏️
+                </a>
+
+                <!-- Tombol Hapus -->
+                <a href="delete.php?id=<?= $row['id'] ?>" onclick="return confirm('Yakin ingin menghapus?')" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600" title="Hapus">
+                    🗑️
+                </a>
+            </div>
         </div>
+    <?php endwhile; ?>
+</div>
+
 
         <!-- Div pemberitahuan, selalu di bawah -->
         <div class="flex items-center justify-center mt-10">
