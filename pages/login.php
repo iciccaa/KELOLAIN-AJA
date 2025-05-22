@@ -5,59 +5,47 @@ if (session_status() === PHP_SESSION_NONE) {
 
 include __DIR__ . '/../koneksi/db.php';
 
-
-// Proses login saat form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Query user berdasarkan email
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Tabel dan role-nya
+    $roles = [
+        'admin' => 'admin',
+        'users' => 'users',
+        'owners' => 'owners'
+    ];
 
-    // Jika user ditemukan
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    foreach ($roles as $table => $roleName) {
+        $stmt = $conn->prepare("SELECT * FROM $table WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
-
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
 
-            if ($password === $user['password']) {
+            if ($password === $user['password']) { // Kalau pakai hash, ganti jadi password_verify
                 $_SESSION['user'] = $user['email'];
+                $_SESSION['role'] = $roleName;
 
-                echo "<script>
-                alert('Login berhasil!');
-                window.location.href = 'home'; // arahkan ke route home
-            </script>";
+                $redirect = match ($roleName) {
+                    'admin' => 'admin/dashboard',
+                    'users' => 'home',
+                    'owners' => 'owners/product',
+                };
+
+                echo "<script>alert('Login $roleName berhasil!'); window.location.href = '$redirect';</script>";
                 exit;
             } else {
-                echo "
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Password salah!',
-                    footer: '<a href=\"#\">Lupa password?</a>'
-                }).then(() => {
-                    window.location.href = 'login.php';
-                });
-            </script>";
+                echo "<script>alert('Password salah!'); window.location.href = 'login';</script>";
+                exit;
             }
-        } else {
-            echo "<script>alert('Email tidak ditemukan!'); window.location.href='login';</script>";
         }
+        $stmt->close();
     }
 
-    $stmt->close();
+    echo "<script>alert('Email tidak ditemukan!'); window.location.href='login';</script>";
 }
 ?>
 

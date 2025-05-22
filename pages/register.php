@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirm_password"];
     $agree = isset($_POST["agree"]);
-    $role = $_POST["role"] ?? ''; // ✅ Tambahkan ini
+    $role = $_POST["role"] ?? '';
 
     // Validasi sederhana (boleh dikembangkan)
     if ($password !== $confirmPassword) {
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $Password = $password;
 
         // Tentukan tabel berdasarkan role
-        $table = ($role === "owner") ? "owners" : "users";
+        $table = ($role === "owners") ? "owners" : "users";
 
         // Query simpan
         $stmt = $conn->prepare("INSERT INTO $table (name, email, password) VALUES (?, ?, ?)");
@@ -47,10 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 
 <body class="min-h-screen bg-white flex items-center justify-center grid grid-cols-2">
-    <div class="p-10">
+    <div class="p-10" data-aos="fade-right">
         <h2 class="text-3xl font-bold mb-6">Input your information</h2>
         <p class="text-gray-600 text-sm mb-6">
             We need some information for your account. Read our <a href="#" class="text-blue-500">terms and conditions</a>.
@@ -87,15 +89,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <br>
             <div class="flex flex-wrap">
-                <div class="flex items-center me-4">
-                    <input id="red-radio" type="radio" value="pengguna" name="role" required class="...">
-                    <label for="red-radio" class="ms-2 text-sm font-medium">Pengguna</label>
+                <div class="flex flex-wrap">
+                    <div class="flex items-center me-4">
+                        <input id="radio-users" type="radio" name="role" required value="users" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="radio-users" class="ms-2 text-sm font-medium text-black">Pengguna</label>
+                    </div>
+                    <div class="flex items-center me-4">
+                        <input id="radio-owners" type="radio" name="role" required value="owners" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="radio-owners" class="ms-2 text-sm font-medium text-black">Owners</label>
+                    </div>
                 </div>
-                <div class="flex items-center me-4">
-                    <input id="green-radio" type="radio" value="owner" name="role" required class="...">
-                    <label for="green-radio" class="ms-2 text-sm font-medium">Owner</label>
-                </div>
-
             </div>
 
 
@@ -109,7 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="bg-blue-50 flex">
         <img src="./assets/register.png" alt="Illustration" class="w-[34.5rem] relative">
     </div>
-
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>
