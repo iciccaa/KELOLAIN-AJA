@@ -69,7 +69,7 @@
             <p class="text-gray-600">Tenant: ' . htmlspecialchars($room['tenant']) . '</p>
         </div>
                <a href="' . $url . '" class="bg-[#5A6ACF] text-white px-4 py-2 rounded-lg hover:bg-indigo-700 inline-block">
-            Edit Tenant
+            Detail Tenant
         </a>
     </div>';
                     }
