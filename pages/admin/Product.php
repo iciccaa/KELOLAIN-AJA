@@ -31,9 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         $path_gambar = basename($_FILES['gambar']['name']);
+        $tmp_name = $_FILES['gambar']['tmp_name'];
 
-        if (move_uploaded_file($tmp_name, $path_gambar)) {
-            // Simpan data ke database
+        // Path tujuan upload (ke folder "uploads")
+        $target_path = "uploads/" . $path_gambar;
+
+        if (move_uploaded_file($tmp_name, $target_path)) {
+            // Simpan hanya nama file ke database, bukan path lengkap
             $stmt = $conn->prepare("INSERT INTO rooms (name, price, available_room, tenant_room, fasilitas, deskripsi, gambar) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("siiisss", $name, $price, $available_room, $tenant_room, $fasilitas, $deskripsi, $path_gambar);
 
@@ -86,9 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="grid grid-cols-1 gap-6">
             <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="flex bg-white rounded-xl shadow-md p-6">
+                <div class="flex bg-white rounded-xl shadow-md p-6 gap-x-12">
                     <div>
-                      <img src="../uploads/<?php echo $row['gambar']; ?>" alt="Gambar Kamar" width="200">
+                        <img src="../uploads/<?php echo $row['gambar']; ?>" alt="gmabar" class="rounded-xl" width="200">
 
                     </div>
                     <div>
@@ -104,15 +108,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Div pemberitahuan, selalu di bawah -->
         <div class="flex items-center justify-center mt-10">
-            
 
-                <div class="flex flex-col gap-4 items-center text-center">
-                    <a href="#" onclick="document.getElementById('modalKamar').classList.remove('hidden')" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                        Tambah Kamar
-                    </a>
-                </div>
 
-            
+            <div class="flex flex-col gap-4 items-center text-center">
+                <a href="#" onclick="document.getElementById('modalKamar').classList.remove('hidden')" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                    Tambah Kamar
+                </a>
+            </div>
+
+
         </div>
     </div>
 
