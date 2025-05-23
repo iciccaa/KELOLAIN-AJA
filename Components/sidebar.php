@@ -1,5 +1,5 @@
  <!-- Sidebar -->
- <div class="w-64 bg-white p-6 shadow-md">
+ <div class="w-64 bg-white p-6 shadow-md fixed h-full">
    <h2 class="text-2xl font-bold mb-10">Kos Pelita Harapan</h2>
    <ul class="space-y-4">
      <li>

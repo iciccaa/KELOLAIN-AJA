@@ -32,7 +32,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-y-auto">
+        <div class="flex-1 overflow-y-auto ml-[16rem]">
             <!-- Topbar -->
             <h1 class="text-2xl font-bold px-8 py-6 text-gray-800">Booking History</h1>
             <div class="flex flex-cols-4 justify-center gap-x-12">
